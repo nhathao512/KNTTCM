@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class cau3 {
+public class Cau3 {
     // Phương thức Bubble Sort
     public static void bubbleSort(int[] arr) {
         int n = arr.length;
