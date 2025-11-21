@@ -70,13 +70,13 @@ GROUP BY d.DepartmentName;
 
 -- CÂU c: Xóa bản ghi trùng trong bảng Employees dựa vào EmployeeID
 -- Cách phổ biến và an toàn nhất trên MySQL 8+ / MariaDB 10.3+ / SQL Server / PostgreSQL
-DELETE e
-FROM Employees e
-INNER JOIN (
-    SELECT EmployeeID, 
+;WITH ranked AS (
+    SELECT *,
            ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY HireDate) AS rn
     FROM Employees
-) ranked ON e.EmployeeID = ranked.EmployeeID AND ranked.rn > 1;
+)
+DELETE FROM ranked
+WHERE rn > 1;
 
 
 -- CÂU d: Phòng ban có tổng lương > 100 triệu, số lượng và lương trung bình
